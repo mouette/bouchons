@@ -3,7 +3,6 @@ import glob
 import os
 import os.path
 import json
-import future
 import re
 import logging
 import uuid
