@@ -1,0 +1,119 @@
+<html ng-app="mocks">
+
+<head>
+  <meta charset="utf-8">
+  <script src="lib/angular.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top ">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+        <a class="navbar-brand" href="index.html" style="color:#D50050">Les Halles - Bouchons</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav nav navbar-left">
+          <li><a href="#">Catalogue</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container" ng-controller="mocksController as context">
+    <div class="starter-template">
+      <div class="row">
+
+        <div class="col-md-5">
+          <table class="table small table-hover">
+            <tr>
+              <td><input type="text" ng-model="search" /></td>
+            </tr>
+            <tr ng-repeat="mock in context.mocks | filter:search" ng-class="{info: mock.id == context.currentId}">
+              <td ng-click="context.loadMock(mock.id)"><a href="#">{{mock.httpMethod}} {{mock.url}}</a></td>
+            </tr>
+            <tr>
+              <td ng-click="context.new()"><a href="#">New...</a></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-7">
+          <form class="form-horizontal small">
+            <div class="panel panel-info">
+              <div class="panel-heading">Request</div>
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="url">Url</label>
+                  <input type="text" class="form-control" id="url" placeholder="Url" ng-model="context.currentMock.url">
+                  <label><input type="checkbox" ng-model="context.currentMock.urlIsRegexp">Regexp</label>
+                </div>
+                <div class="form-group">
+                  <label for="method">Method</label>
+                  <select name="methodSelector" class="form-control" id="method" ng-model="context.currentMock.httpMethod">
+                            <option ng-repeat="method in context.httpMethods" value="{{method}}">{{method}}</select>
+                  <span ng-if="context.currentMock.httpMethod=='POST' || context.currentMock.httpMethod=='PUT' || context.currentMock.httpMethod=='PATCH'">
+                    <label for="url">Schema url</label>
+                    <input type="text" class="form-control" id="schema" placeholder="Schema url" ng-model="context.currentMock.schema">
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-info">
+              <div class="panel-heading">Response</div>
+              <div class="panel-body">
+                <div class="form-inline">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="number" class="form-control" id="minLatency" placeholder="Min" ng-model="context.currentMock.latency.min">
+                      <div class="input-group-addon">ms</div>
+                    </div>
+                    <label for="minLatency">< Latency < </label>
+                    <div class="input-group">
+                      <input type="number" min="0" class="form-control" id="maxLatency" placeholder="Max" ng-model="context.currentMock.latency.max">
+                      <div class="input-group-addon">ms</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="code">Http Status Code</label>
+                  <input type="number" class="form-control" id="code" ng-model="context.currentMock.httpStatusCode">
+                </div>
+                <div class="form-group">
+                  <label for="headers">Headers</label>
+                  <textarea class="form-control" id="headers" rows="3" ng-model="context.currentMock.headers"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="response">Response</label>
+                  <textarea class="form-control" id="response" rows="7" ng-model="context.currentMock.json"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="response">Response file</label>
+                  <input type="text" class="form-control" id="responsefilepath" placeholder="Response file path" ng-model="context.currentMock.responsefilepath">
+                </div>
+				</div>
+            </div>
+            <button ng-if="context.currentMock.id" type="submit" class="btn btn-primary" ng-click="context.update()">Update</button>
+            <button ng-if="!context.currentMock.id" type="submit" class="btn btn-primary" ng-click="context.create()">Create</button>
+            <button ng-if="context.currentMock.id" class="btn btn-danger" ng-click="context.delete()">Delete</button>
+            <button ng-if="context.currentMock.id" class="btn btn-info" ng-click="context.duplicate()">Duplicate</button>
+            <a ng-if="context.currentMock.httpMethod=='GET'" class="btn btn-primary" href="/bouchons{{context.currentMock.url}}" target="_blank">Test</a>
+            <span ng-if="context.currentMock.id">Id : {{context.currentMock.id}}</span>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="lib/jquery-1.11.3.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="js/mocks.js"></script>
+</body>
+
+</html>
