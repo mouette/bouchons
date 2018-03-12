@@ -1,0 +1,1 @@
+{"latency": {"max": null, "min": null}, "headers": "Content-Type: application/json\nTest: valeur", "url": "\\/v1\\/sillons?.*dateHeureDebutPlage=(\\d{4})-(\\d{2})-(\\d{2}).*", "responsefilepath": "files/sillons_prod_\\1\\2\\3.txt", "id": "def292ee-8acb-4577-8606-86f69b45755f", "httpMethod": "GET", "httpStatusCode": 200, "response": {"result": "ok"}, "urlIsRegexp": true}

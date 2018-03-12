@@ -1,0 +1,1 @@
+{"latency": {"max": null, "min": null}, "headers": "Content-Type: application/json", "url": "/v1/referentiel/lignesCommerciales", "id": "bc0c35b3-fc59-4feb-9044-4a943b13d71e", "httpMethod": "POST", "httpStatusCode": 200, "response": {"a": 1}, "schema": "http://localhost:8080/ihm/schemas/test.json"}
